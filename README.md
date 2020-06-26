@@ -8,4 +8,6 @@ Use at your own risk. I will be cleaning it up over the next few weeks. I recome
 
 TODO:
 
-• Clean up usel
+• Clean up useless comments. Add more useful comments.
+
+• P
