@@ -10,4 +10,6 @@ TODO:
 
 • Clean up useless comments. Add more useful comments.
 
-• P
+• Place more logic into functions
+
+• Create modules 
