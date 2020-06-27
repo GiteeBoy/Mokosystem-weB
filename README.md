@@ -12,4 +12,4 @@ TODO:
 
 • Place more logic into functions
 
-• Create modules 
+• Create modules to separate function types
