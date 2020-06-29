@@ -91,3 +91,40 @@ var buyVsSell = 0;
 
 var startTime = 0;
 var stopTime = 0;
+
+var repeatPrevention = 0;
+
+var totalTransactions = 0;
+
+var dayTradeGains = 0;
+
+var orderPriceBuy = 0.00;
+var orderPriceSell = 0.00;
+
+
+var orderSequence = null;
+var orderCancellation = null;
+	
+var salesMultiplier = 1.00;	
+			
+var tradeValue = 0.00;			
+		
+/////
+//writeTime();	//	Only call once
+//writeFiles();
+/////
+
+readFiles();
+setTimeout(decreaseRange, 60000);
+getPricePerShare();
+
+for (let j = 0; j < process.argv.length; j++) 
+{  
+	if(j == 2)
+	{
+		log("Autotrader is booting up.");
+		
+		api.connect().then(() => 
+		{
+			connection = "Connected";
+			
