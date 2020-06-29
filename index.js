@@ -61,3 +61,33 @@ var rangeIncrementTime = 0.0001;	//	How much to decrease the range percentage by
 
 var rangePercentage = 0.01;	//	Starting range percentage. This value doesnt matter because it's read from a file at start of program.
 var lastTradeRangePercentage = 0.00;	//	This is used to reset orders if a trade has not occured in a long time.
+
+var closeOrders = 1;	//	When this value is '1', the program closes all outstanding orders.
+
+var range = 0.00;
+
+var reserveMultiplier = 0.50;		
+var transactionID = 0;
+var XRP = 0;
+var USD = 0;
+
+var cash = 0.00;
+var cashOld = 0.00;
+var cashDifference = 0.00;
+
+var reserve = 0.00;
+var reserveXRP = 0.00;
+
+var counterparty = 0;
+var pricePerShare = 0.00;
+var marketValue = 0;
+var state = "Stop";
+var excecuteDelay = 0;
+var connection = "Not connected";
+var autoTraderStatus = "Disabled";
+var userCount = 0;
+
+var buyVsSell = 0;
+
+var startTime = 0;
+var stopTime = 0;
