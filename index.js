@@ -128,3 +128,41 @@ for (let j = 0; j < process.argv.length; j++)
 		{
 			connection = "Connected";
 			
+		}).catch(console.error);
+		
+		autoTraderStatus = "Enabled";
+		state = "Start";
+		setTimeout(start, 10000);
+	}
+    console.log(j + ' -> ' + (process.argv[j]));
+}
+
+
+//	We define a route handler / that gets called when we hit our website home
+app.get('/', function(req, res)
+{
+	res.sendFile(__dirname + '/webpage/index.html');
+	
+});
+
+app.get('/favicon.ico', function(req, res)
+{
+	res.sendFile(__dirname + '/webpage/favicon.ico');
+	
+});
+
+api.on('error', (errorCode, errorMessage) => 
+{
+  console.log(errorCode + ': ' + errorMessage);
+});
+
+api.on('connected', () => 
+{
+  console.log('connected');
+});
+
+api.on('disconnected', (code) => 
+{
+  // code - [close code](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent) sent by the server
+  // will be 1000 if this was normal closure
+  console.log('disconnected, code:', code);
