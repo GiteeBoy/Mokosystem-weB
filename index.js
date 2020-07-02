@@ -166,3 +166,58 @@ api.on('disconnected', (code) =>
   // code - [close code](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent) sent by the server
   // will be 1000 if this was normal closure
   console.log('disconnected, code:', code);
+});
+
+//	When user connects
+io.on('connection', function(socket)
+{
+	userCount++;
+	io.emit('userCount', userCount);
+	io.emit('beep', totalTransactions);
+	
+	console.log('A user connected');
+	io.emit('autoTraderStatus', autoTraderStatus);
+	updateVariables();
+	
+	refresh();
+	
+	readLastLines.read('log.txt', 30)
+    .then((lines) => 
+	{
+		let splitLines = lines.split(/\r?\n/);
+		for(var i = 0; i < splitLines.length; i++)
+		{
+			socket.emit('emit', splitLines[i]);
+		}
+	});
+	
+	//	When user sends message
+	socket.on('inputReceived', function(message)
+	{
+		console.log('Message: ' + message);
+		io.emit('emit', message);
+		
+		if(message == "Connect")
+		{
+			log("Connecting to Ripple API");
+			
+			api.connect().then(() => 
+			{
+				log('Connected.');
+				connection = "Connected";
+				io.emit('connectionStatus', connection);
+				
+			}).catch(console.error);
+		}
+		else if(message == "Disconnect")
+		{
+			log("Disconnecting from Ripple API");
+			
+			api.disconnect().then(() => 
+			{
+				log('API disconnected.');
+				connection = "Not connected";
+				io.emit('connectionStatus', connection);
+			}).catch(console.error);
+		}
+		else if(message == "Exit")
