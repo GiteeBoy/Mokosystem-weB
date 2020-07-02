@@ -257,3 +257,47 @@ io.on('connection', function(socket)
 		}
 		else if(message == "BumpRange")
 		{
+			log("Bumping range.");
+			rangePercentage = rangePercentage + rangeIncrement;
+		}
+		else if(message == "DropRange")
+		{
+			log("Dropping range.");
+			rangePercentage = rangePercentage - rangeIncrement;
+		}
+	});
+  
+	
+	//	When user disconnects
+	socket.on('disconnect', function()
+	{
+		console.log('User disconnected');
+		userCount--;
+		io.emit('userCount', userCount);
+	});
+
+});
+
+function start()
+{
+	startTimer();
+	updateVariables();
+	
+	refresh();
+	
+	writeFiles();
+	
+	console.log('fixedPoint');
+	console.log(fixedPoint);
+	console.log('dayTradeGains');
+	console.log(dayTradeGains);
+	console.log('totalTransactions');
+	console.log(totalTransactions);
+	
+	console.log(' ');
+	console.log(' ');
+	
+	console.log(pricePerShare);
+
+	if(state == "Stop")
+	{
