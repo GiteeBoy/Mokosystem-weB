@@ -221,3 +221,39 @@ io.on('connection', function(socket)
 			}).catch(console.error);
 		}
 		else if(message == "Exit")
+		{
+			log("Shutting down server.");
+			process.exit();
+		}
+		else if(message == "Start")
+		{
+			autoTraderStatus = "Enabled";
+			io.emit('autoTraderStatus', autoTraderStatus);
+			log("Starting Auto Trader");
+			state = "Start";
+			start();
+		}
+		else if(message == "Stop")
+		{
+			autoTraderStatus = "Disabled";
+			io.emit('autoTraderStatus', autoTraderStatus);
+			log("Stoping Auto Trader, please wait...");
+			
+			state = "Stop";
+		}
+		else if(message == "Reset")
+		{
+			writeTime();
+			dayTradeGains = 0.00;
+			totalTransactions = 0;	
+			reserve = 0.00;			
+			reserveXRP = 0.00;		
+
+			writeFiles();
+			
+			setTimeout(readFiles, 1000);
+			
+
+		}
+		else if(message == "BumpRange")
+		{
