@@ -301,3 +301,43 @@ function start()
 
 	if(state == "Stop")
 	{
+		log("Terminating Auto Trader");
+		return 0;
+	}
+	
+	api.getOrders(address).then(orders =>
+	{
+		
+		console.log("Showing orders: ");
+		console.log(" ");
+		console.log(orders);
+		console.log(" ");
+		console.log("Number of orders: ");
+		console.log(" ");
+		console.log(orders.length);
+		console.log(" ");
+		
+		
+		buyVsSell = 0;
+		
+		// Make sure 1 buy and 1 sell
+		for(var i = 0; i < orders.length; i++)
+		{
+			if(orders[i].specification.direction == "buy")
+			{
+				buyVsSell++;
+			}
+			else if(orders[i].specification.direction == "sell")
+			{
+				buyVsSell--;
+			}
+
+		}
+			
+		if(repeatPrevention == 0)
+		{
+			if(buyVsSell > 0)
+			{	
+				//https://ripple.com/build/rippled-apis/#book-offers
+				log("We sold shares!");
+				totalTransactions++;
