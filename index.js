@@ -376,3 +376,51 @@ function start()
 
 			}
 			
+			if((buyVsSell != 0) && (rangePercentage < rangeHigh))
+			{
+				rangePercentage = rangePercentage + rangeIncrement;
+				lastTradeRangePercentage = rangePercentage;
+			}
+		}
+		
+		//	If we need to place orders
+		if(orders.length == 0 && closeOrders == 0)
+		{
+			excecuteDelay = 2;
+			
+			updateVariables();
+			
+			if((marketValue * reserveMultiplier) < cash)
+			{			
+				if(reserveMultiplier < 5.00)
+				{
+					reserveMultiplier = parseFloat((parseFloat(reserveMultiplier) + 0.001).toFixed(3));
+				}
+				
+				let fixedPointChange = ((range * reserveMultiplier) / 10.0);	//	Max change to fixedpoint is 50% of range
+				fixedPoint = (fixedPoint + fixedPointChange);
+
+				range = marketValue * rangePercentage;
+				
+				reserve += parseFloat((fixedPointChange * (reserveMultiplier / 5.00)).toFixed(2));	//	(At max)50% reinvested, 50% reserve
+				
+				log(" ");
+				log("Our cash is now in a surplus.");
+				
+				let mes = "Re-investing " + parseFloat(fixedPointChange.toFixed(2)).toString() + " dollars.";
+				log(mes);
+				
+				log("New fixed point: " + (fixedPoint.toFixed(2)).toString());
+
+				log("New range: " + (range.toFixed(2)).toString());
+
+				log("New Reserve Multiplier: " + reserveMultiplier.toString());
+
+				log(" ");
+			}
+			
+			writePriceLog();
+			writeTimeout();
+			
+			buy();
+			setTimeout(sell, 30000);
