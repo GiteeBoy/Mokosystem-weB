@@ -341,3 +341,38 @@ function start()
 				//https://ripple.com/build/rippled-apis/#book-offers
 				log("We sold shares!");
 				totalTransactions++;
+				io.emit('beep', totalTransactions);
+	
+				dayTradeGains += tradeValue;
+				
+				let percentageCashVSMax = cash / (marketValue * reserveMultiplier);
+				
+				if(percentageCashVSMax > 1.0)
+				{
+					percentageCashVSMax =  1.0;
+				}
+				
+				let inversePercentageCashVsMax = 1.0 - percentageCashVSMax;
+				
+				if(marketValue > (fixedPoint * 0.95))
+				{
+					reserve += parseFloat(((parseFloat(tradeValue * (reserveMultiplier / 5.00)) * parseFloat(percentageCashVSMax)) / 10.00).toFixed(2));
+						
+					reserveXRP += parseFloat(((parseFloat(tradeValue * (reserveMultiplier / 5.00)) * parseFloat(inversePercentageCashVsMax)) / 10.00).toFixed(4));
+				}
+				
+				let mes = "We gained $" + parseFloat(tradeValue.toFixed(2)).toString() + " on that trade.";
+				log(mes);
+				
+				io.emit('dayTradeGains', dayTradeGains);
+			}
+			else if(buyVsSell < 0)
+			{
+				io.emit('dayTradeGains', dayTradeGains);
+
+				log("We bought shares!");
+				totalTransactions++;
+				io.emit('beep', totalTransactions);
+
+			}
+			
