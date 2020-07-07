@@ -471,3 +471,46 @@ function start()
 			setTimeout(getPricePerShare, 69000);
 			setTimeout(start, 70000);
 		}
+		else if(state == "Start" && excecuteDelay == 0)	//	Do nothing
+		{
+			setTimeout(getPricePerShare, 24000);
+			setTimeout(start, 25000);
+		}
+		else
+		{
+			log("Terminating Auto Trader");
+		}
+		
+	}).catch(console.error);
+};
+
+
+// ----------------------
+
+/*
+(
+	function myLoop (i) //	Example function loop
+	{          
+	   setTimeout(
+	   function () 
+	   {   
+		  alert('hello');          //  your code here                
+		  if(--i)
+			  myLoop(i);      //  decrement i and call myLoop again if i > 0
+	   }, 3000)
+	}
+)(10);
+*/
+/*
+
+function cancelOrders(orders, i, delay) //	Example function loop
+{          
+   setTimeout
+   (
+	   function () 
+	   {   
+			//  Start your code here
+			orderSequence = orders[(i-1)].properties.sequence;
+			orderCancellation = {orderSequence: orderSequence};
+
+			log("Cancelling outstanding orders. Sequence #" + orderSequence.toString());
