@@ -424,3 +424,50 @@ function start()
 			
 			buy();
 			setTimeout(sell, 30000);
+  
+		}
+		else if ((orders.length == 2 && buyVsSell == 0) && closeOrders == 0)
+		{
+			console.log("Orders already exist.");
+			writeTimeout();
+		}
+		else if((orders.length != 2 || buyVsSell != 0) || closeOrders == 1)
+		{
+			closeOrders = 0;
+			excecuteDelay = 1;
+			repeatPrevention = 1;
+			
+			if(orders.length > 0)
+			{
+				orderSequence = orders[0].properties.sequence;
+				orderCancellation = {orderSequence: orderSequence};
+				
+				log("Cancelling outstanding orders. Sequence #" + orderSequence.toString());
+				
+				api.prepareOrderCancellation(address, orderCancellation, myInstructions).then(prepared => 
+				{						
+					return api.sign(prepared.txJSON, secret);
+				}).then(prepared => 
+				{				
+					return api.submit(prepared.signedTransaction);
+				}).then(result => 
+				{
+					console.log(result);
+				});
+			}		
+		}
+
+	}).then(() =>
+	{
+		if(state == "Start" && excecuteDelay == 1)	//	cancel order
+		{
+			excecuteDelay = 0;
+			setTimeout(getPricePerShare, 24000);
+			setTimeout(start, 25000);
+		}
+		else if(state == "Start" && excecuteDelay == 2)	//	Place order
+		{
+			excecuteDelay = 0;
+			setTimeout(getPricePerShare, 69000);
+			setTimeout(start, 70000);
+		}
