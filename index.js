@@ -514,3 +514,42 @@ function cancelOrders(orders, i, delay) //	Example function loop
 			orderCancellation = {orderSequence: orderSequence};
 
 			log("Cancelling outstanding orders. Sequence #" + orderSequence.toString());
+
+			api.prepareOrderCancellation(address, orderCancellation, myInstructions).then(prepared => 
+			{						
+				return api.sign(prepared.txJSON, secret);
+			}).then(prepared => 
+			{				
+				return api.submit(prepared.signedTransaction);
+			}).then(result => 
+			{
+				console.log(result);
+			});
+			//  End your code here
+			
+			if(--i)
+				cancelOrders(orders, i, delay);      //  decrement i and call myLoop again if i > 0
+	   },
+	   delay
+   )
+}
+*/
+function shutDown()
+{
+	process.exit();
+}
+
+
+function decreaseRange()
+{
+	if(rangePercentage > rangeLow)
+	{
+		//log("Current Range Percentage:");
+		//log(rangePercentage);
+		rangePercentage = rangePercentage - rangeIncrementTime;
+		//log("New Range Percentage(Timeout): " + (rangePercentage * 100.00).toFixed(2) + "%");
+		//log(rangePercentage);
+		//closeOrders = 1;
+
+		if(lastTradeRangePercentage >= (rangePercentage + 0.005))
+		{
