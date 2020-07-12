@@ -605,3 +605,49 @@ function buy()
 	let buyPrice = (buyPoint / XRP);	//	Price of shares when we buy
 	
 	let fixedPointSwayBuy = (fixedPoint / marketValue);	//	Larger when MV is low
+	
+	orderPriceBuy = buyPrice;
+
+	let shares = Math.floor(range / buyPrice);	//	Shares to trade
+	shares = shares * salesMultiplier * fixedPointSwayBuy * fixedPointSwayBuy;
+	
+	if(shares == 0)
+	{
+		shares = salesMultiplier;
+	}
+	
+	let cost = Number((shares * buyPrice).toFixed(6));	//	Cost for transaction
+	
+	//XRP has 6 significant digits past the decimal point. In other words, XRP cannot be divided into positive values smaller than 0.000001 (1e-6). XRP has a maximum value of 100000000000 (1e11).
+
+	//Non-XRP values have 16 decimal digits of precision, with a maximum value of 9999999999999999e80. The smallest positive non-XRP value is 1e-81
+
+	let buyPriceClean = buyPrice.toFixed(4);	//	For text output only
+	let costClean = cost.toFixed(4);	//	For text output only
+	
+	log(" ");
+	log("Placing an order to buy " + shares.toFixed(4) + " shares of XRP at $" + buyPriceClean + " for $" + costClean);
+	
+	console.log('Creating a new order');
+	let buyOrder = createBuyOrder(shares, cost);
+	api.prepareOrder(address, buyOrder, myInstructions).then(prepared => 
+	{
+		console.log('Order Prepared');
+		return api.getLedger().then(ledger => 
+		{
+			console.log('Current Ledger', ledger.ledgerVersion);
+			return submitTransaction(ledger.ledgerVersion, prepared, secret);
+		});
+	}).then(() => 
+	{
+
+		
+	}).catch(console.error);
+}
+function sell()
+{
+	//	1% sellPoint
+	let sellPoint = marketValue + range;	//	Point at which we sell
+	let sellPrice = (sellPoint / XRP);	//	Price of shares when we sell
+	orderPriceSell = sellPrice;
+	
