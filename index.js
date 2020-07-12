@@ -553,3 +553,55 @@ function decreaseRange()
 
 		if(lastTradeRangePercentage >= (rangePercentage + 0.005))
 		{
+			log("We havent detected a trade in a while now... Resetting orders.");
+			closeOrders = 1;
+			lastTradeRangePercentage = rangePercentage;
+		}
+	}
+	
+	let maxCash = (fixedPoint * reserveMultiplier);
+	let timeWarp = ((maxCash / 2.00) / cash);	//	Up to double speed (5min) when things are good (when TW = 0.5)
+	
+	let dropFP = (((fixedPoint - marketValue) / 100.00) / 288.00);	//	1% of delta FP per day when at max speed.
+	
+	//	Cash should never actually get low, in reality it does happen but we are trying to be resilient to that.
+	dropFP = (dropFP * timeWarp);	//	Multiplier when cash is low
+	dropFP = (dropFP * timeWarp);	//	Low cash means critical level and it might need saving.
+	
+	fixedPoint = parseFloat(parseFloat(fixedPoint - dropFP).toFixed(2));
+	
+	/*
+	if(cash <= (fixedPoint * reserveMultiplier / 2.00))	//	If cash is less than half of expected size
+	{
+		timeoutTime = timeoutTime * timeWarp
+	}
+	*/
+	
+	//let timeoutTime = 450000.00;	//	Every 7.5 min
+	//	Max speed is every 5 min
+	let timeoutTime = 300000.00;	//	Every 5.0 min
+	timeoutTime = (timeoutTime * timeWarp);
+	timeoutTime = parseInt(timeoutTime);
+	
+	timeoutTime =  timeoutTime + 300000.00;	//	Add fixed time of 5 min
+	
+	setTimeout(decreaseRange, timeoutTime);
+	//setTimeout(decreaseRange, 900000);	//	Every 15 min
+	//setTimeout(decreaseRange, 1800000);	//	Every 30 min
+	//setTimeout(decreaseRange, 1440000);	//	Every 24 min (10 times per 4 hours)
+	//setTimeout(decreaseRange, 21600000);	//	Every 6 hours
+}	
+				
+/*
+function getPrice()
+{
+	pricePerShare = 
+	setTimeout(start, 5000);
+}
+*/
+function buy()
+{
+	let buyPoint = marketValue - range;	//	Point at which we buy
+	let buyPrice = (buyPoint / XRP);	//	Price of shares when we buy
+	
+	let fixedPointSwayBuy = (fixedPoint / marketValue);	//	Larger when MV is low
