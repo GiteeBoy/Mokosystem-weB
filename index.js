@@ -687,3 +687,48 @@ function getPricePerShare()
 {
 	/*
 	var options = 
+	{
+		host: 'https://data.ripple.com/v2/exchange_rates/XRP/USD+rMwjYedjc7qqtKYVLiAccJSmCwih4LnE2q',
+		path: '/'
+	}
+	*/
+	//https://data.ripple.com/v2/account/rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq/orders
+	//let url = "https://www.bitstamp.net/api/v2/ticker/xrpusd/";
+		
+	//let url = "https://data.ripple.com/v2/exchange_rates/XRP/USD+rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq"	//	USDS wallet this was in use
+	let url = "https://data.ripple.com/v2/exchanges/XRP/USD+rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq?descending=true&limit=1"	//	Gatehub, works
+
+	console.log("Getting price");
+	request
+	({
+		url: url,
+		json: true
+	}, function (error, response, body) 
+	{
+		console.log("...");
+		if (!error && response.statusCode === 200) 
+		{
+			//pricePerShare = parseFloat(body.rate);
+			pricePerShare = parseFloat(body.exchanges[0].rate);
+			console.log('Reading price: ', pricePerShare);
+			io.emit('pricePerShare', pricePerShare);
+		}
+		else
+		{
+			log("Error getting price");
+			log(response);
+
+		}
+		console.log(body);
+	})
+}
+
+//Buy XRP
+function createBuyOrder(shares, cost)
+{
+	let stringShare = shares.toString();
+	let stringCost = cost.toString();
+	
+	let buyOrder = 
+	{
+	  "direction": "buy",
