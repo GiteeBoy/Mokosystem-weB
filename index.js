@@ -651,3 +651,39 @@ function sell()
 	let sellPrice = (sellPoint / XRP);	//	Price of shares when we sell
 	orderPriceSell = sellPrice;
 	
+	let fixedPointSwaySell = (marketValue / fixedPoint);		//	Larger when MV is High
+	
+	let shares = Math.floor(range / sellPrice);	//	Shares to trade
+	shares = shares * salesMultiplier * fixedPointSwaySell * fixedPointSwaySell;
+	
+	if(shares == 0)
+	{
+		shares = salesMultiplier;
+	}
+	
+	let cost = Number((shares * sellPrice).toFixed(6));	//	Cost for transaction
+	
+	tradeValue = parseFloat(cost) * rangePercentage;
+	
+	let sellPriceClean = sellPrice.toFixed(4);	//	For text output only
+	let costClean = cost.toFixed(4);	//	For text output only
+
+	log("Placing an order to sell " + shares.toFixed(4) + " shares of XRP at $" + sellPriceClean + " for $" + costClean);
+
+	//let orderSuccess = api.prepareOrder(address, createSellOrder(shares, cost), myInstructions).then(prepared => 
+	api.prepareOrder(address, createSellOrder(shares, cost), myInstructions).then(prepared => 
+	{
+		console.log('Order Prepared');
+		return api.getLedger().then(ledger => 
+		{
+			repeatPrevention = 0;
+			console.log('Current Ledger', ledger.ledgerVersion);
+			return submitTransaction(ledger.ledgerVersion, prepared, secret);
+		});
+	}).catch(console.error);
+}
+
+function getPricePerShare()
+{
+	/*
+	var options = 
