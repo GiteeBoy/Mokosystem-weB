@@ -822,3 +822,43 @@ function verifyTransaction(hash, options)
 	{
       return new Promise((resolve, reject) => 
 	  {
+        setTimeout(() => verifyTransaction(hash, options)
+        .then(resolve, reject), INTERVAL);
+      });
+    }
+    return error;
+  });
+}
+
+/* Function to prepare, sign, and submit a transaction to the XRP Ledger. */
+function submitTransaction(lastClosedLedgerVersion, prepared, secret) 
+{
+	const signedData = api.sign(prepared.txJSON, secret);
+	return api.submit(signedData.signedTransaction).then(data => 
+	{
+		console.log('Tentative Result: ', data.resultCode);
+		console.log('Tentative Message: ', data.resultMessage);
+		/* If transaction was not successfully submitted throw error */
+		assert.strictEqual(data.resultCode, 'tesSUCCESS');
+		/* 'tesSUCCESS' means the transaction is being considered for the next ledger, and requires validation. */
+
+		/* If successfully submitted, begin validation workflow */
+		const options = 
+		{
+			minLedgerVersion: lastClosedLedgerVersion,
+			maxLedgerVersion: prepared.instructions.maxLedgerVersion
+		};
+		return new Promise((resolve, reject) => 
+		{
+			setTimeout(() => verifyTransaction(signedData.id, options).then(resolve, reject), INTERVAL);
+		});
+	});
+}
+
+function startTimer()
+{
+	startTime = new Date();
+	startTime = Math.floor(startTime / 1000);
+}
+
+function stopTimer()
