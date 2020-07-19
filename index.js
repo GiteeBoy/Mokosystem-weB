@@ -732,3 +732,46 @@ function createBuyOrder(shares, cost)
 	let buyOrder = 
 	{
 	  "direction": "buy",
+	  
+	  "quantity": 
+	  {
+		"currency": "XRP",
+		"value": stringShare
+	  },
+	  
+	  "totalPrice": 
+	  {
+		"currency": "USD",
+		"counterparty": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq",
+		"value": stringCost
+	  },
+	  
+	  "passive": true,
+	  
+	  "fillOrKill": false
+	};
+	
+	return buyOrder;
+}
+
+//Sell XRP
+function createSellOrder(shares, cost)
+{
+	let stringShare = shares.toString();
+	let stringCost = cost.toString();
+	
+	
+	let sellOrder = 
+	{
+	  "direction": "sell",
+	  
+	  "quantity": 
+	  {
+		"currency": "XRP",
+		"value": stringShare
+	  },
+	  
+	  "totalPrice": 
+	  {
+		"currency": "USD",
+		"counterparty": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq",
