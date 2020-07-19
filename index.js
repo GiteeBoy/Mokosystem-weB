@@ -775,3 +775,50 @@ function createSellOrder(shares, cost)
 	  {
 		"currency": "USD",
 		"counterparty": "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq",
+		"value": stringCost
+	  },
+	  
+	  "passive": true,
+	  
+	  "fillOrKill": false
+	};
+	
+	return sellOrder;
+}
+
+function log(message)
+{
+	let messageWithTime = getDateTime() + ": " + message.toString() + "\n";
+	
+	if(message == " " || message == "\n")
+	{
+		messageWithTime = message + "\n";
+	}
+	
+	console.log(messageWithTime);
+	io.emit('emit', message);
+	
+	fs.appendFile('log.txt', messageWithTime, function (err) 
+	{
+		//if (err) throw err;
+		//console.log('Saved priceLogChart!');
+	});
+}
+
+function verifyTransaction(hash, options) 
+{
+  console.log('Verifing Transaction');
+  return api.getTransaction(hash, options).then(data => 
+  {
+    console.log('Final Result: ', data.outcome.result);
+    console.log('Validated in Ledger: ', data.outcome.ledgerVersion);
+    console.log('Sequence: ', data.sequence);
+    return data.outcome.result === 'tesSUCCESS';
+  }).catch(error => 
+  {
+    /* If transaction not in latest validated ledger,
+       try again until max ledger hit */
+    if (error instanceof api.errors.PendingLedgerVersionError) 
+	{
+      return new Promise((resolve, reject) => 
+	  {
