@@ -862,3 +862,41 @@ function startTimer()
 }
 
 function stopTimer()
+{
+	stopTime = new Date();
+	stopTime = Math.floor(stopTime / 1000);
+}
+
+function refresh()
+{
+	io.emit('pricePerShare', pricePerShare);
+	io.emit('USD', cash);
+	io.emit('XRP', XRP);
+	io.emit('fixedPoint', fixedPoint);
+	io.emit('range', range);
+	io.emit('salesMultiplier', salesMultiplier);
+	io.emit('reserve', reserve);
+	io.emit('reserveXRP', reserveXRP);
+	io.emit('dayTradeGains', dayTradeGains);
+	io.emit('connectionStatus', connection);
+	io.emit('reserveMultiplier', reserveMultiplier);
+	io.emit('orderPriceBuy', orderPriceBuy);
+	io.emit('orderPriceSell', orderPriceSell);
+	
+	hours();
+}
+
+	
+function hours()
+{
+	let programCurrentTime = new Date();
+	programCurrentTime = Math.floor(programCurrentTime / 1000);
+	
+	let programElapsedTime = programCurrentTime - programStartingTime; 
+	programElapsedTime = (programElapsedTime / 3600);
+	io.emit('hours', programElapsedTime);
+}
+
+function readFiles()
+{
+	fs.readFile('date.txt', function(err, data) 
