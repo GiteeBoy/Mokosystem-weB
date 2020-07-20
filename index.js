@@ -900,3 +900,58 @@ function hours()
 function readFiles()
 {
 	fs.readFile('date.txt', function(err, data) 
+	{
+		programStartingTime = parseInt(data);
+		programStartingTime = Math.floor(programStartingTime / 1000);
+		console.log(programStartingTime);
+	});
+	
+	fs.readFile('dayTradeGains.txt', function(err, data) 
+	{
+		dayTradeGains = parseFloat(data);
+		console.log(dayTradeGains);
+	});
+	
+	fs.readFile('totalTransactions.txt', function(err, data) 
+	{
+		totalTransactions = parseInt(data);
+		console.log(totalTransactions);
+	});
+	
+	fs.readFile('fixedPoint.txt', function(err, data) 
+	{
+		fixedPoint = parseFloat(data);
+		console.log(fixedPoint);
+	});
+	
+	fs.readFile('reserve.txt', function(err, data) 
+	{
+		
+		reserve = parseFloat(data);
+		//console.log("Line 804: Reserve:");
+		//console.log(reserve);
+		//console.log(typeof(reserve));
+	});
+	
+	fs.readFile('rangePercentage.txt', function(err, data) 
+	{
+		rangePercentage = parseFloat(data);
+		console.log(rangePercentage);
+	});
+	
+	fs.readFile('reserveMultiplier.txt', function(err, data) 
+	{
+		reserveMultiplier = parseFloat(parseFloat(data).toFixed(3));
+		console.log(reserveMultiplier);
+	});
+	
+	fs.readFile('reserveXRP.txt', function(err, data) 
+	{
+		reserveXRP = parseFloat(parseFloat(data).toFixed(4));
+		console.log(reserveXRP);
+	});
+	
+	io.emit('beep', totalTransactions);
+}
+
+// Only use once
