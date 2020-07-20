@@ -1000,3 +1000,45 @@ function writeFiles()
 	{
 		if (err) throw err;
 		console.log('Saved rangePercentage!');
+	});
+	
+	fs.writeFile('reserveMultiplier.txt', reserveMultiplier, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved reserveMultiplier!');
+	});
+	
+	fs.writeFile('reserveXRP.txt', reserveXRP, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved XRP Reserve!');
+	});
+	
+}
+
+
+function writePriceLog()
+{
+	let getTime = new Date();
+	getTime = getTime.getTime();
+	getTime = parseInt(getTime);
+	getTime = Math.floor(getTime / 1000);
+	getTime = getTime - programStartingTime;
+	
+	let priceLogLine = (getTime.toString() + ", " + pricePerShare.toString() + ", " + USD.toString() + ", " + marketValue.toString() + ", " + XRP.toString() + ", \n");
+	fs.appendFile('priceLog.csv', priceLogLine, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved priceLogLine!');
+	});
+	//console.log("Line 891: Reserve:");
+	//console.log(reserve);
+	//console.log(typeof(reserve));
+	let netWorthValue = (parseFloat(USD) + parseFloat(marketValue));
+	netWorthValue = parseFloat(netWorthValue.toFixed(2));
+
+	let priceLogChart = (getTime.toString() + ", " + pricePerShare.toString() + ", " + netWorthValue.toString() + ", \n");
+	fs.appendFile('priceLogChart.csv', priceLogChart, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved priceLogChart!');
