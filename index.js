@@ -955,3 +955,48 @@ function readFiles()
 }
 
 // Only use once
+function writeTime()
+{
+	let getTime = new Date();
+	getTime = getTime.getTime();
+	fs.writeFile('date.txt', getTime, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved!');
+	});
+}
+
+function writeFiles()
+{
+	fs.writeFile('dayTradeGains.txt', dayTradeGains, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved gains!');
+	});
+	
+	fs.writeFile('totalTransactions.txt', totalTransactions, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved transactions count!');
+	});
+	
+	fs.writeFile('fixedPoint.txt', fixedPoint, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved fixedPoint!');
+	});
+	
+	fs.writeFile('reserve.txt', reserve, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved reserve!');
+		
+		//console.log("Line 857: Reserve:");
+		//console.log(reserve);
+		//console.log(typeof(reserve));
+	});
+	
+	fs.writeFile('rangePercentage.txt', rangePercentage, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved rangePercentage!');
