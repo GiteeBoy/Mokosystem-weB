@@ -1042,3 +1042,48 @@ function writePriceLog()
 	{
 		if (err) throw err;
 		console.log('Saved priceLogChart!');
+	});
+}
+
+function writeTimeout()
+{
+	let getTime = new Date();
+	getTime = getTime.getTime();
+	fs.writeFile('timeOut.txt', getTime, function (err) 
+	{
+		if (err) throw err;
+		console.log('Saved timeout!');
+	});
+}
+
+//	We make the http server listen on port 8080
+http.listen(8080, function()
+{
+	console.log('listening on *:8080');
+});
+
+function updateVariables()
+{
+	//getPricePerShare();
+	getBalance();
+	
+	console.log("XRP");
+	console.log(typeof(XRP));
+	console.log(XRP);
+	
+	console.log("ppS");
+	console.log(typeof(pricePerShare));
+	console.log(pricePerShare);
+	
+	marketValue = (XRP * pricePerShare);
+	
+	console.log("Updating MV");
+	console.log(typeof(marketValue));
+	console.log(marketValue);
+	
+	range = marketValue * rangePercentage;
+	
+	let lowerValue = 0.00;
+	if(cash >= marketValue)
+	{
+		lowerValue = marketValue;
