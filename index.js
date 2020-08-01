@@ -1087,3 +1087,37 @@ function updateVariables()
 	if(cash >= marketValue)
 	{
 		lowerValue = marketValue;
+	}
+	else
+	{
+		lowerValue = cash;
+	}
+	
+	salesMultiplier = (((lowerValue - 1.00) / range) / 20.00);	//	5% of either cash or MV, whichever is lower
+}
+
+function getBalance()
+{
+	api.getBalances(address).then(balances => 
+	{
+		
+		console.log('Checking balance...');
+		console.log(balances);
+		
+		for(var i = 0; i < balances.length; i++)
+		{
+			if(balances[i].currency == "XRP")
+			{
+				let resultMessage = "XRP: ";
+				
+				XRP = balances[i].value;
+				
+				reserveXRP = parseFloat(reserveXRP);
+				
+				XRP = (XRP - reserveXRP);
+				
+				resultMessage += XRP;
+				console.log(resultMessage);
+				console.log(" ");
+				io.emit('XRP', XRP);
+			}
