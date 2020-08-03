@@ -1206,3 +1206,20 @@ function getDateTime(unit)
 	else if (unit == "year")
 	{
 		return year.toString();
+	}
+	else if (unit == "month")
+	{
+		return month.toString();
+	}
+	else if (unit == "day")
+	{
+		return day.toString();
+	}
+	else
+	{
+		return ("[ " + year.toString() + "-" + month.toString() + "-" + day.toString() + " ][ " + hour.toString() + ":" + min.toString() + ":" + sec.toString() + " ]");
+	}
+}
+
+
+//https://www.npmjs.com/package/read-last-lines
