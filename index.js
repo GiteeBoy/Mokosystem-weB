@@ -1121,3 +1121,49 @@ function getBalance()
 				console.log(" ");
 				io.emit('XRP', XRP);
 			}
+			else if(balances[i].currency == "USD" && balances[i].counterparty == "rhub8VRN55s94qWKDv6jmDy1pUykJzF3wq")
+			{
+				let resultMessage = "USD: $";
+				USD = balances[i].value;
+				
+				cash = parseFloat(USD);
+				
+				if(cashOld == 0.00)
+				{
+					cashOld = cash;
+				}
+				
+				cashDifference = cash - cashOld;
+				
+				//fixedPoint = fixedPoint - cashDifference;
+				//range = fixedPoint  * rangePercentage;
+				
+				reserve = parseFloat(reserve);
+				
+				
+				cash = (cash - reserve);	
+
+				resultMessage += USD;
+				counterparty = balances[i].counterparty;
+				console.log(resultMessage);
+				//console.log("CounterParty: " + counterparty);
+				console.log(" ");
+				io.emit('USD', cash);
+				
+				if(cash < (range * 2.00 * salesMultiplier) || cash <= 1.00)
+				{
+					log("Out of cash, shutting down server.");
+					
+					log("Disconnecting from Ripple API");
+			
+					api.disconnect().then(() => 
+					{
+						log('API disconnected.');
+						connection = "Not connected";
+						io.emit('connectionStatus', connection);
+					}).catch(console.error);
+			
+					setTimeout(shutDown, 1000);
+				}
+			}
+		}
