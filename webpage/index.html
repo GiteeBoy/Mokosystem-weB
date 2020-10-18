@@ -80,4 +80,6 @@
 					return false;
 				});
 				
-				socket.o
+				socket.on('emit', function(msg)
+				{
+					if(msg == "W
