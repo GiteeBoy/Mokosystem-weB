@@ -105,4 +105,7 @@
 					
 					var wtf = $('#messagesListDiv');
 					var height = wtf[0].scrollHeight;
-					wtf.scrollTop(hei
+					wtf.scrollTop(height);
+				});
+				
+				socket.on('privateMessage', fu
