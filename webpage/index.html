@@ -110,4 +110,6 @@
 				
 				socket.on('privateMessage', function(msg)
 				{
-					$('#messages').append($('<li
+					$('#messages').append($('<li>').text(msg));
+					
+					var wtf = $('#messagesLis
