@@ -108,4 +108,6 @@
 					wtf.scrollTop(height);
 				});
 				
-				socket.on('privateMessage', fu
+				socket.on('privateMessage', function(msg)
+				{
+					$('#messages').append($('<li
