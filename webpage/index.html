@@ -116,4 +116,6 @@
 					var height = wtf[0].scrollHeight;
 					wtf.scrollTop(height);
 				});
-	
+				
+				socket.on('USD', function(msg)
+				{
