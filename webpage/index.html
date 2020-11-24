@@ -113,4 +113,7 @@
 					$('#messages').append($('<li>').text(msg));
 					
 					var wtf = $('#messagesListDiv');
-					var height = wtf[0].scrollHeig
+					var height = wtf[0].scrollHeight;
+					wtf.scrollTop(height);
+				});
+	
