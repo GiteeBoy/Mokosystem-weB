@@ -120,4 +120,6 @@
 				socket.on('USD', function(msg)
 				{
 					USD = msg;
-					USD = parseFloat(USD).toF
+					USD = parseFloat(USD).toFixed(2);
+					$('#cashDiv').text("$" + USD);
+			
