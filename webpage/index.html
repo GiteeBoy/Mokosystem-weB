@@ -177,4 +177,6 @@
 					$('#sharesDiv').text("x" + XRP);
 				});
 				
-				socket.on('reserve', f
+				socket.on('reserve', function(msg)
+				{
+					reserve = parseFloat(msg).
