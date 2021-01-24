@@ -180,4 +180,7 @@
 				socket.on('reserve', function(msg)
 				{
 					reserve = parseFloat(msg).toFixed(2);
-					$('#reserveD
+					$('#reserveDiv').text("$" + reserve);
+				});
+				
+				
