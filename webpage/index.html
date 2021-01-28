@@ -186,4 +186,7 @@
 				socket.on('reserveXRP', function(msg)
 				{
 					reserveXRP = parseFloat(msg).toFixed(2);
-					$('#reserveXRPDiv').text("x" + reserveXRP
+					$('#reserveXRPDiv').text("x" + reserveXRP);
+				});
+				
+				socket.on('fixedPoin
