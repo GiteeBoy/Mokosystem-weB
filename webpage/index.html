@@ -185,4 +185,5 @@
 				
 				socket.on('reserveXRP', function(msg)
 				{
-					reserveXRP = parseFloat(msg).toFi
+					reserveXRP = parseFloat(msg).toFixed(2);
+					$('#reserveXRPDiv').text("x" + reserveXRP
