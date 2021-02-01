@@ -189,4 +189,7 @@
 					$('#reserveXRPDiv').text("x" + reserveXRP);
 				});
 				
-				socket.on('fixedPoin
+				socket.on('fixedPoint', function(msg)
+				{
+					fixedPoint = msg;
+		
