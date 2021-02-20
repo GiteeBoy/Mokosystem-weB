@@ -197,4 +197,4 @@
 				
 				socket.on('range', function(msg)
 				{
-					$('#rangeDiv')
+					$('#rangeDiv').text(parseFloat(msg).toFixed(2));
