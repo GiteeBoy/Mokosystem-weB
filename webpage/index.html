@@ -198,4 +198,7 @@
 				socket.on('range', function(msg)
 				{
 					$('#rangeDiv').text(parseFloat(msg).toFixed(2));
-					$('#rangePercentageDiv').text(((parseFloat(msg) * 100.00) / parseFloat(marketValue))
+					$('#rangePercentageDiv').text(((parseFloat(msg) * 100.00) / parseFloat(marketValue)).toFixed(2) + "%");
+				});
+
+				socket.on('s
