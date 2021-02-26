@@ -208,4 +208,5 @@
 
 				socket.on('orderPriceBuy', function(msg)
 				{
-					$('#orderPriceBuyD
+					$('#orderPriceBuyDiv').text(parseFloat(msg).toFixed(5));
+					order
