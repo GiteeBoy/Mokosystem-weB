@@ -222,4 +222,4 @@
 					//$( "#orderPriceSellDiv" ).text
 					orderPriceSell = parseFloat(parseFloat(msg).toFixed(5));
 					openOrderRange = parseFloat(orderPriceSell - orderPricebuy);
-					currentPricePercentage = parseFloat((priceP
+					currentPricePercentage = parseFloat((pricePerShare.toFixed(5)) - orderPricebuy) /
