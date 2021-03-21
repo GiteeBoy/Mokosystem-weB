@@ -223,4 +223,6 @@
 					orderPriceSell = parseFloat(parseFloat(msg).toFixed(5));
 					openOrderRange = parseFloat(orderPriceSell - orderPricebuy);
 					currentPricePercentage = parseFloat((pricePerShare.toFixed(5)) - orderPricebuy) / openOrderRange;
-					currentPricePercentage = ((currentPricePercentage * 200
+					currentPricePercentage = ((currentPricePercentage * 200.00) - 100.00).toFixed(2);	//	 To 200%
+					
+					
