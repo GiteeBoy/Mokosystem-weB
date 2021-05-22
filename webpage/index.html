@@ -274,3 +274,4 @@
 				socket.on('reserveMultiplier', function(msg)
 				{
 					reserveMultiplier = Number(msg.toFixed(3));
+					$('#reserveMultiplierDiv').text(msg)
