@@ -278,4 +278,6 @@
 				});
 				
 				
-				socket.on('hours', function(ms
+				socket.on('hours', function(msg)
+				{
+					if(parseFloat(msg) >= (24.00 * 3
