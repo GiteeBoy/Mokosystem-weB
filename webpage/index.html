@@ -280,4 +280,6 @@
 				
 				socket.on('hours', function(msg)
 				{
-					if(parseFloat(msg) >= (24.00 * 3
+					if(parseFloat(msg) >= (24.00 * 365.25))
+					{
+						hours = (msg.toFixed(2) / (24.00 * 
