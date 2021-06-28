@@ -300,4 +300,5 @@
 						hours = (msg.toFixed(2) / 24).toFixed(2);	//	days
 						$('#hoursDiv').text(hours + " days");
 					}
-				
+					else if(parseFloat(msg) <= 24.00)
+					{
