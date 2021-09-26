@@ -382,4 +382,5 @@
 					totalLiquid = parseFloat(USD) + (parseFloat(XRP) * parseFloat(pricePerShare));
 					marketValueDiv.innerHTML = "$" +  totalLiquid.toFixed(2);
 					
-					totalReserve = parseFloat(reserve) + (parseFloat(reserveXRP) * parseFloat(
+					totalReserve = parseFloat(reserve) + (parseFloat(reserveXRP) * parseFloat(pricePerShare));
+					totalReserveDiv.innerHTML = "$" + 
