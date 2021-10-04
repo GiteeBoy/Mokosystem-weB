@@ -387,4 +387,6 @@
 					
 					netWorth = parseFloat(marketValue) + parseFloat(USD) + parseFloat(reserve) + (parseFloat(reserveXRP) * parseFloat(pricePerShare));
 				
-					currentPriceDiv.innerHTML = "$" +  pricePerShare.to
+					currentPriceDiv.innerHTML = "$" +  pricePerShare.toFixed(5);
+					
+					netWorthDiv.innerHTML = "$" +  
