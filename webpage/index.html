@@ -394,4 +394,5 @@
 					totalTransactionsDiv.innerHTML = totalTransactions;
 					
 					let maxCash = (fixedPoint * reserveMultiplier);
-					let timeWarp = ((maxCash / 2.00) / USD);	//	Up to double speed (5min) when things are goo
+					let timeWarp = ((maxCash / 2.00) / USD);	//	Up to double speed (5min) when things are good (when TW = 0.5)
+					let timeoutTime = 30
