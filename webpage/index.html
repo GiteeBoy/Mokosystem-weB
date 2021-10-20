@@ -397,4 +397,6 @@
 					let timeWarp = ((maxCash / 2.00) / USD);	//	Up to double speed (5min) when things are good (when TW = 0.5)
 					let timeoutTime = 300000.00;	//	Every 5.0 min
 					timeoutTime = (timeoutTime * timeWarp);
-					timeoutTime 
+					timeoutTime = parseInt(timeoutTime);
+					
+					timeou
