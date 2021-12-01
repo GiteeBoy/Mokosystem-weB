@@ -435,4 +435,5 @@
 						dayTradePercent = ((dayTradePercent / hours).toFixed(4));
 					}
 					
-					APR = (Math.pow((1 + ((dayTradePercent * (1 / (1 + reserveMultiplier))) / 100)), 3
+					APR = (Math.pow((1 + ((dayTradePercent * (1 / (1 + reserveMultiplier))) / 100)), 365) * 100) - 100;	//	
+					//-----------
