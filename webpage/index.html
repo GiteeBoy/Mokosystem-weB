@@ -475,4 +475,4 @@
 			{
 				$.getJSON('https://api.coindesk.com/v1/bpi/currentprice.json', function(data) 
 				{
-					BTCPrice
+					BTCPrice = parseFloat(data.bpi.USD.rate.replace(/,/g
