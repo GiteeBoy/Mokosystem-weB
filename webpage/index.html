@@ -501,4 +501,7 @@
 			{ 
 				var hex = Number(rgb).toString(16);
 				
-				if (h
+				if (hex.length < 2)
+				{
+					hex = "0" + hex;
+		
